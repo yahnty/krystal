@@ -1,2 +1,2 @@
-# wx_ty
+# krystal
 微信小程序学习
