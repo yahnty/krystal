@@ -9,7 +9,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    classic: null,
+    latest: true,
+    first: false
   },
 
   onLike: function(event) {
