@@ -1,4 +1,4 @@
-// components/navi/index.js
+   // components/navi/index.js
 Component({
   /**
    * 组件的属性列表
@@ -29,7 +29,9 @@ Component({
       }
     },
     onRight: function(event) {
-      this.triggerEvent('right',{},{})
+      if(!this.properties.first) {
+        this.triggerEvent('right',{},{})
+      }
     }
   }
 })
