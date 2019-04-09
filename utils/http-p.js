@@ -6,28 +6,32 @@ const tips = {
   3000: '期刊不存在'
 }
 class HTTP {
-  request(params) {
-    if(!params.method){
-      params.method = "GET"
-    }
+  request({url, data={}, method='GET'}) {
+    return new Promise((resolve, reject)=>{
+      this._request(url,resolve,reject,data,method)
+    })
+  }
+  _request(url, resolve, reject, data, method) {
     wx.request({
-      url: config.api_base_url + params.url,
-      method: params.method,
-      data: params.data,
+      url: config.api_base_url + url,
+      method: method,
+      data: data,
       header: {
         'content-type': "application/json",
         'appKey': config.appKey
       },
       success: (res)=>{
-        let statusCode = res.statusCode.toString()
+        const statusCode = res.statusCode.toString()
         if (statusCode.startsWith('2')) {
-            params.success && params.success(res.data)
+            resolve(res.data)
         } else {
-         let error_code = res.data.error_code
+          reject()
+         const error_code = res.data.error_code
          this._show_error(error_code)
         }
       },
       fail: (error) => {
+        reject()
         this._show_error(1)
       }
     })
